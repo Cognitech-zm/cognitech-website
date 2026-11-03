@@ -1,0 +1,152 @@
+/* ==========================================================================
+   Page-specific pieces and small utilities
+   ========================================================================== */
+
+/* ---- Utilities ------------------------------------------------------------ */
+.u-mt-0 { margin-top: 0 !important; }
+.u-mt-3 { margin-top: var(--space-3); }
+.u-mt-4 { margin-top: var(--space-4); }
+.u-mt-5 { margin-top: var(--space-5); }
+.u-mb-6 { margin-bottom: var(--space-6); }
+
+.prose {
+  max-width: 40rem;
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+  --stack: var(--space-4);
+}
+
+/* Contact link in the desktop nav only appears when there's room */
+@media (min-width: 64em) and (max-width: 79.99em) {
+  .nav__list > li:has(> [data-nav="contact"]) {
+    display: none;
+  }
+}
+
+.site-footer__more {
+  margin-top: var(--space-4);
+}
+
+.site-footer__more a {
+  color: var(--accent-text);
+  font-weight: 650;
+}
+
+/* ---- About ----------------------------------------------------------------- */
+.mv-card {
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-7);
+  min-height: 18rem;
+  padding: clamp(var(--space-6), 4vw, var(--space-8));
+  background: var(--paper);
+  border-radius: var(--radius-q-lg);
+}
+
+.mv-card__text {
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.mv-card--dark {
+  background: var(--indigo-700);
+  color: var(--white);
+  --text-muted: var(--indigo-200);
+}
+
+.person h3 {
+  margin-top: var(--space-5);
+  font-size: var(--fs-md);
+  font-weight: 650;
+}
+
+.person__role {
+  margin-block: var(--space-1) var(--space-3);
+  color: var(--accent-text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+/* ---- Pricing add-ons -------------------------------------------------------- */
+.addon-list {
+  border-top: 1px solid var(--line-light);
+}
+
+.addon {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-4) var(--space-5);
+  align-items: center;
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--line-light);
+}
+
+.addon h3 {
+  font-size: var(--fs-md);
+  font-weight: 650;
+}
+
+.addon__price {
+  grid-column: 2;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.addon__price strong {
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  color: var(--text);
+}
+
+@media (min-width: 48em) {
+  .addon {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  .addon__price {
+    grid-column: auto;
+    text-align: right;
+  }
+}
+
+/* ---- FAQ topic chips -------------------------------------------------------- */
+.chips ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+.chip:hover {
+  background: rgb(255 255 255 / 0.08);
+  border-color: var(--copper-400);
+}
+
+/* ---- Contact ----------------------------------------------------------------- */
+@media (min-width: 60em) {
+  .split--contact {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+}
+
+.contact-list code,
+.notice code {
+  font-size: 0.9em;
+}

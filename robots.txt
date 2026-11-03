@@ -1,0 +1,7 @@
+# robots.txt — Cognitech Business Solutions
+User-agent: *
+Allow: /
+Disallow: /partials/
+Disallow: /tools/
+
+Sitemap: https://cognitech.co.zm/sitemap.xml

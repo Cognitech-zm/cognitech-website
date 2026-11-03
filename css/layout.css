@@ -1,0 +1,612 @@
+/* ==========================================================================
+   Layout: containers, bands, grids, site header, mobile menu, footer
+   Mobile-first: base rules target small screens, media queries add up.
+   ========================================================================== */
+
+/* ---- Containers --------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--narrow {
+  max-width: calc(var(--container-narrow) + var(--gutter) * 2);
+}
+
+/* ---- Bands (section backgrounds) --------------------------------------- */
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+.section--tight {
+  padding-block: calc(var(--section-y) * 0.6);
+}
+
+.section--flush-top {
+  /* follows a quadrant divider, which already provides visual separation */
+  padding-top: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+}
+
+.band-paper {
+  background: var(--band-paper);
+  color: var(--text);
+}
+
+.band-white {
+  background: var(--band-white);
+  color: var(--text);
+}
+
+.band-ink {
+  --text-muted: var(--text-on-dark-muted);
+  --text-soft: var(--text-on-dark-soft);
+  --accent-text: var(--accent-text-on-dark);
+  --line-light: var(--line-dark);
+  --focus: var(--copper-400);
+  background: var(--band-ink);
+  color: var(--text-on-dark);
+}
+
+.band-indigo {
+  --text-muted: var(--indigo-200);
+  --text-soft: var(--indigo-300);
+  --accent-text: var(--copper-400);
+  --line-light: var(--line-dark);
+  --focus: var(--copper-400);
+  background: var(--indigo-700);
+  color: var(--white);
+}
+
+/* ---- Quadrant divider ---------------------------------------------------
+   A strip of quarter-circle tiles where one band "flows" into the next.
+   The colour comes from --from (band above); the element's own background
+   is --to (band below). The shapes are an SVG mask, so any colour pair
+   works without new image files.                                         */
+.q-divider {
+  --tile: clamp(28px, 4vw, 48px);
+  position: relative;
+  height: var(--tile);
+  background: var(--to, var(--band-paper));
+}
+
+.q-divider::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--from, var(--band-ink));
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='384' height='48'%3E%3Cpath d='M48 0v48A48 48 0 0 1 0 0zM48 0h48A48 48 0 0 1 48 48zM144 0h48v48h-48zM240 0h48A48 48 0 0 1 240 48zM288 0h48v48h-48zM384 0v48A48 48 0 0 1 336 0z'/%3E%3C/svg%3E")
+    0 0 / calc(var(--tile) * 8) var(--tile) repeat-x;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='384' height='48'%3E%3Cpath d='M48 0v48A48 48 0 0 1 0 0zM48 0h48A48 48 0 0 1 48 48zM144 0h48v48h-48zM240 0h48A48 48 0 0 1 240 48zM288 0h48v48h-48zM384 0v48A48 48 0 0 1 336 0z'/%3E%3C/svg%3E")
+    0 0 / calc(var(--tile) * 8) var(--tile) repeat-x;
+}
+
+.q-divider--flip::before {
+  transform: scaleY(-1);
+}
+
+/* ---- Generic grids ------------------------------------------------------ */
+.stack > * + * {
+  margin-top: var(--stack, var(--space-5));
+}
+
+.grid {
+  display: grid;
+  gap: var(--grid-gap, var(--space-5));
+}
+
+@media (min-width: 40em) {
+  .grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 48em) {
+  .grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64em) {
+  .grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 40em) and (max-width: 63.99em) {
+  .grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.split {
+  display: grid;
+  gap: var(--space-7);
+}
+
+@media (min-width: 60em) {
+  .split {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+  .split--even {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .split--center {
+    align-items: center;
+  }
+  .split__sticky {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-6));
+  }
+}
+
+/* ==========================================================================
+   Site header
+   Transparent over the dark hero; gains an ink surface once the page
+   scrolls (class toggled in js/main.js). Without JS it stays readable
+   because every page hero is a dark band.
+   ========================================================================== */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  color: var(--white);
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    backdrop-filter var(--dur) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+.site-header.is-scrolled,
+.site-header.is-open {
+  background: rgb(20 19 61 / 0.92);
+  border-bottom-color: var(--line-dark);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  backdrop-filter: saturate(140%) blur(14px);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  height: var(--header-h);
+}
+
+.site-header__logo {
+  display: inline-flex;
+  flex: none;
+  padding-block: var(--space-2);
+  border-radius: 2px;
+}
+
+.site-header__logo img {
+  width: auto;
+  height: 2rem;
+}
+
+/* Desktop navigation (hidden on small screens) */
+.nav {
+  display: none;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__link,
+.nav__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0 var(--space-4);
+  border: 0;
+  background: none;
+  color: var(--indigo-200);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.nav__link:hover,
+.nav__toggle:hover,
+.nav__link[aria-current="page"],
+.nav__toggle[aria-expanded="true"],
+.nav__item--current > .nav__toggle {
+  color: var(--white);
+}
+
+.nav__link[aria-current="page"]::after,
+.nav__item--current > .nav__toggle::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-left: 2px;
+  background: var(--copper-500);
+  border-radius: 0 6px 0 0;
+}
+
+.nav__toggle .icon {
+  width: 1rem;
+  height: 1rem;
+  transition: transform var(--dur) var(--ease);
+}
+
+.nav__toggle[aria-expanded="true"] .icon {
+  transform: rotate(180deg);
+}
+
+.nav__item {
+  position: relative;
+}
+
+/* Services disclosure panel */
+.nav__panel {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 50%;
+  width: 26rem;
+  padding: var(--space-3);
+  background: var(--indigo-900);
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius-q);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(-50%);
+}
+
+.nav__panel[hidden] {
+  display: none;
+}
+
+.nav__panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__panel a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  color: var(--white);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.nav__panel a:hover {
+  background: rgb(255 255 255 / 0.06);
+}
+
+.nav__panel a[aria-current="page"] {
+  background: rgb(255 255 255 / 0.08);
+}
+
+.nav__panel .icon-tile {
+  --tile-size: 2.25rem;
+}
+
+.nav__panel-all {
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--line-dark);
+}
+
+.nav__panel-all a {
+  color: var(--copper-400);
+}
+
+.site-header .site-header__cta {
+  display: none;
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Light / dark toggle (js/main.js). Hidden without JavaScript, since it
+   can't do anything then. Shows the moon in light mode, sun in dark.   */
+.theme-toggle {
+  display: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--line-dark);
+  background: rgb(255 255 255 / 0.04);
+  color: var(--white);
+  border-radius: var(--radius-q-sm);
+  transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+}
+
+.js .theme-toggle {
+  display: inline-grid;
+}
+
+.theme-toggle:hover {
+  border-color: var(--copper-400);
+  background: rgb(255 255 255 / 0.08);
+}
+
+.theme-toggle .icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.theme-toggle .icon-sun,
+[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+.menu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line-dark);
+  background: rgb(255 255 255 / 0.04);
+  color: var(--white);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  border-radius: var(--radius-q-sm);
+}
+
+/* Small phones: the menu button drops its "Menu" text (still read out by
+   screen readers) so the logo, theme toggle and menu button all fit. */
+@media (max-width: 23.99em) {
+  .site-header__inner {
+    gap: var(--space-3);
+  }
+  .menu-button {
+    width: 2.75rem;
+    padding: 0;
+    justify-content: center;
+  }
+  .menu-button > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+.menu-button .icon-close,
+.menu-button[aria-expanded="true"] .icon-open {
+  display: none;
+}
+
+.menu-button[aria-expanded="true"] .icon-close {
+  display: block;
+}
+
+@media (min-width: 64em) {
+  .nav {
+    display: block;
+  }
+  .site-header .site-header__cta {
+    display: inline-flex;
+  }
+  .menu-button {
+    display: none;
+  }
+}
+
+/* ---- Mobile menu -------------------------------------------------------- */
+.mobile-menu {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  z-index: 99;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-6) var(--gutter) var(--space-8);
+  background: var(--indigo-900);
+  color: var(--white);
+}
+
+.mobile-menu[hidden] {
+  display: none;
+}
+
+.mobile-menu__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-dark);
+}
+
+.mobile-menu__list > li {
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.mobile-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3.75rem;
+  color: var(--white);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.mobile-menu__link[aria-current="page"] {
+  color: var(--copper-400);
+}
+
+.mobile-menu__sub {
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.mobile-menu__sub a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-left: var(--space-4);
+  color: var(--indigo-200);
+  text-decoration: none;
+  border-left: 1px solid var(--line-dark);
+}
+
+.mobile-menu__sub a[aria-current="page"] {
+  color: var(--copper-400);
+  border-left-color: var(--copper-500);
+}
+
+.mobile-menu__cta {
+  margin-top: var(--space-6);
+}
+
+.mobile-menu__cta .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (min-width: 64em) {
+  .mobile-menu {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-8) var(--space-6);
+  background: var(--surface-sunk);
+  color: var(--text);
+}
+
+.site-footer__top {
+  display: grid;
+  gap: var(--space-7);
+}
+
+@media (min-width: 48em) {
+  .site-footer__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64em) {
+  .site-footer__top {
+    grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  }
+}
+
+.site-footer__brand img {
+  width: 13rem;
+  height: auto;
+}
+
+.site-footer__brand p {
+  max-width: 22rem;
+  margin-top: var(--space-5);
+  color: var(--text-muted);
+}
+
+.site-footer h2 {
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-xs);
+  font-weight: 650;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.site-footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer li + li {
+  margin-top: var(--space-2);
+}
+
+.site-footer__links a {
+  display: inline-block;
+  padding-block: var(--space-1);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.site-footer__links a:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.site-footer__contact li {
+  color: var(--text-muted);
+}
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line-light);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+.site-footer__mark {
+  position: absolute;
+  right: -4rem;
+  bottom: -6rem;
+  width: 22rem;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .site-footer__mark {
+  opacity: 0.1;
+}
+
+/* Footer logo: indigo version on light, white version on dark */
+.logo-on-dark,
+[data-theme="dark"] .logo-on-light {
+  display: none;
+}
+
+[data-theme="dark"] .logo-on-dark {
+  display: block;
+}
+
+@media (min-width: 64em) {
+  .site-footer__mark {
+    width: 30rem;
+  }
+}

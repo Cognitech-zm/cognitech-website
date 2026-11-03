@@ -1,0 +1,17 @@
+{
+  "siteUrl": "https://cognitech.co.zm",
+  "ogImage": "assets/images/og-default.png",
+  "pages": [
+    { "file": "index.html", "nav": "home", "priority": 1.0 },
+    { "file": "services.html", "nav": "services", "priority": 0.9 },
+    { "file": "services/software-web-development.html", "nav": "svc-software", "priority": 0.8 },
+    { "file": "services/digital-growth-lead-generation.html", "nav": "svc-growth", "priority": 0.8 },
+    { "file": "services/business-automation-crm.html", "nav": "svc-automation", "priority": 0.8 },
+    { "file": "services/it-support-infrastructure.html", "nav": "svc-it", "priority": 0.8 },
+    { "file": "services/ecommerce-payment-integration.html", "nav": "svc-ecommerce", "priority": 0.8 },
+    { "file": "about.html", "nav": "about", "priority": 0.7 },
+    { "file": "pricing.html", "nav": "pricing", "priority": 0.8 },
+    { "file": "faq.html", "nav": "faq", "priority": 0.6 },
+    { "file": "contact.html", "nav": "contact", "priority": 0.8 }
+  ]
+}

@@ -1,0 +1,13 @@
+# Secrets and local settings — never commit these
+.env
+.env.*
+
+# Dependencies and tool output
+node_modules/
+
+# OS / Google Drive clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+~$*

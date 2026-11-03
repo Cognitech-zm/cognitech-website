@@ -1,0 +1,169 @@
+/* ==========================================================================
+   Cognitech design tokens
+   --------------------------------------------------------------------------
+   Brand colours come from the supplied logo files
+   (Logo - Quadrant Indigo Copper): indigo #2B2A80, copper #D2743A,
+   slate #5E6080. Everything else is a derived shade added for contrast.
+   Change brand colours, type and spacing here — not in component files.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Manrope";
+  src: url("../assets/fonts/manrope-latin-variable.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Brand ---------------------------------------------------------- */
+  --indigo-950: #0e0d2b;
+  --indigo-900: #14133d;   /* deep "ink" used for dark bands            */
+  --indigo-850: #1b1a52;
+  --indigo-800: #23226b;
+  --indigo-700: #2b2a80;   /* BRAND INDIGO (logo)                        */
+  --indigo-600: #3a39a6;
+  --indigo-500: #5a59c2;
+  --indigo-300: #a9aad0;   /* muted text on ink — 7.8:1                  */
+  --indigo-200: #cfd0e8;
+  --indigo-100: #e8e8f4;
+
+  --copper-700: #9c4d1d;
+  --copper-600: #a24f1f;   /* copper text on light surfaces — 4.8:1+     */
+  --copper-500: #d2743a;   /* BRAND COPPER (logo) — graphics/buttons     */
+  --copper-400: #e8925a;   /* copper text on ink — 7.3:1                 */
+  --copper-100: #f8e6d8;
+
+  --slate-500: #5e6080;    /* logo tagline colour                        */
+
+  /* ---- Neutrals & surfaces ------------------------------------------- */
+  --paper: #f7f5f1;        /* warm off-white light band                  */
+  --paper-2: #efebe3;
+  --white: #ffffff;
+  --line-light: #dfdad0;
+  --line-dark: rgb(255 255 255 / 0.12);
+
+  /* ---- Semantic colours ---------------------------------------------- */
+  --text: #16152e;
+  --text-muted: #55576f;          /* 7.0:1 on paper                      */
+  --text-soft: #807e95;           /* large display text only (3.6:1)     */
+  --text-on-dark: #ffffff;
+  --text-on-dark-muted: var(--indigo-300);
+  --text-on-dark-soft: #8f90c4;   /* large display text only on ink      */
+
+  --accent: var(--copper-500);
+  --accent-text: var(--copper-600);
+  --accent-text-on-dark: var(--copper-400);
+
+  --success: #1f7a4d;
+  --danger: #b42318;
+  --danger-on-dark: #ff9b8f;
+  --focus: var(--copper-500);
+
+  /* ---- Typography ---------------------------------------------------- */
+  --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --fs-xs: 0.75rem;     /* 12 */
+  --fs-sm: 0.875rem;    /* 14 */
+  --fs-base: 1rem;      /* 16 */
+  --fs-md: 1.125rem;    /* 18 */
+  --fs-lg: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  --fs-2xl: clamp(2rem, 1.4rem + 2.4vw, 3.5rem);
+  --fs-display: clamp(2.5rem, 1.5rem + 4.4vw, 5.25rem);
+
+  --lh-tight: 1.06;
+  --lh-snug: 1.2;
+  --lh-body: 1.6;
+  --tracking-display: -0.045em;
+  --tracking-heading: -0.03em;
+  --tracking-label: 0.18em;
+
+  /* ---- Spacing (4px base) -------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --section-y: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+  --gutter: clamp(1.25rem, 0.6rem + 3vw, 4rem);
+
+  /* ---- Layout -------------------------------------------------------- */
+  --container: 80rem;       /* 1280px */
+  --container-narrow: 48rem;
+  --header-h: 4.5rem;
+
+  /* ---- Shape ----------------------------------------------------------
+     The "quadrant corner": square shapes with ONE rounded corner (top
+     right), echoing the copper quarter-circle in the logo.             */
+  --radius-q-sm: 0 0.75rem 0 0;
+  --radius-q: 0 1.25rem 0 0;
+  --radius-q-lg: 0 2.5rem 0 0;
+  --radius-pill: 999px;
+
+  /* ---- Elevation ----------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgb(20 19 61 / 0.06), 0 1px 1px rgb(20 19 61 / 0.04);
+  --shadow-md: 0 10px 30px -12px rgb(20 19 61 / 0.25);
+  --shadow-lg: 0 30px 60px -24px rgb(20 19 61 / 0.35);
+
+  /* ---- Motion -------------------------------------------------------- */
+  --dur-fast: 150ms;
+  --dur: 250ms;
+  --dur-slow: 600ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* ---- Theme surfaces --------------------------------------------------
+     Components use these instead of raw colours so the dark theme can
+     swap them in one place (see [data-theme="dark"] below).             */
+  --band-paper: var(--paper);       /* .band-paper sections               */
+  --band-white: var(--white);       /* .band-white sections               */
+  --band-ink: var(--indigo-900);    /* .band-ink sections (same in both)  */
+  --surface-raised: var(--white);   /* cards, form card, price cards      */
+  --surface-sunk: var(--paper-2);   /* footer, custom-project band        */
+  --surface-tint: var(--indigo-100);      /* icon tiles, soft fills       */
+  --surface-tint-fg: var(--indigo-700);   /* icon on a tinted tile        */
+  --field-bg-default: var(--white);
+  --field-border-default: #b9b5c9;
+  --placeholder: #6f6d85;
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   Dark theme
+   Set by the small script in each page's <head> (partials/theme.html):
+   it follows the visitor's device setting until they use the header
+   toggle, then remembers their choice. Built from the same brand colours:
+   deep indigo surfaces, white text, light copper (#E8925A) for small
+   copper text. Ink bands (hero, CTA) look the same in both themes.
+   ========================================================================== */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --band-paper: #0b0a24;
+  --band-white: #100f2e;
+  --band-ink: var(--indigo-900);
+  --surface-raised: #1a1946;
+  --surface-sunk: #08071c;
+  --surface-tint: rgb(255 255 255 / 0.08);
+  --surface-tint-fg: var(--copper-400);
+
+  --text: #eeeef8;
+  --text-muted: var(--indigo-300);       /* 8:1+ on the dark surfaces      */
+  --text-soft: var(--text-on-dark-soft); /* large display text only        */
+  --accent-text: var(--copper-400);
+  --line-light: var(--line-dark);
+  --focus: var(--copper-400);
+  --danger: var(--danger-on-dark);
+
+  --field-bg-default: rgb(255 255 255 / 0.04);
+  --field-border-default: rgb(255 255 255 / 0.28);
+  --placeholder: #8f90c4;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 12px 32px -12px rgb(0 0 0 / 0.6);
+  --shadow-lg: 0 30px 60px -24px rgb(0 0 0 / 0.7);
+}

@@ -1,0 +1,68 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href="{{root}}index.html" data-nav="home">
+      <img src="{{root}}assets/brand/cognitech-logo-white.svg" width="203" height="40" alt="Cognitech Business Solutions — home">
+    </a>
+    <nav class="nav" aria-label="Main">
+      <ul class="nav__list">
+        <li class="nav__item{{services-current}}" data-dropdown>
+          <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-services">
+            Services <svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="nav__panel" id="nav-services" hidden>
+            <ul>
+              <li><a href="{{root}}services/software-web-development.html" data-nav="svc-software"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-code-xml"/></svg></span>Software &amp; Web Development</a></li>
+              <li><a href="{{root}}services/digital-growth-lead-generation.html" data-nav="svc-growth"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"/></svg></span>Digital Growth &amp; Lead Generation</a></li>
+              <li><a href="{{root}}services/business-automation-crm.html" data-nav="svc-automation"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-workflow"/></svg></span>Business Automation &amp; CRM</a></li>
+              <li><a href="{{root}}services/it-support-infrastructure.html" data-nav="svc-it"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-server"/></svg></span>IT Support &amp; Infrastructure</a></li>
+              <li><a href="{{root}}services/ecommerce-payment-integration.html" data-nav="svc-ecommerce"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-shopping-cart"/></svg></span>E-commerce &amp; Payment Integration</a></li>
+              <li class="nav__panel-all"><a href="{{root}}services.html" data-nav="services">All services <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a class="nav__link" href="{{root}}about.html" data-nav="about">About</a></li>
+        <li><a class="nav__link" href="{{root}}pricing.html" data-nav="pricing">Pricing</a></li>
+        <li><a class="nav__link" href="{{root}}faq.html" data-nav="faq">FAQ</a></li>
+        <li><a class="nav__link" href="{{root}}contact.html" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="site-header__actions">
+    <button class="theme-toggle" type="button" aria-pressed="false" title="Switch to dark mode" data-theme-toggle>
+      <span class="visually-hidden">Dark mode</span>
+      <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+    </button>
+    <a class="btn btn--primary btn--sm site-header__cta" href="{{root}}contact.html">Book a consultation <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+      <span>Menu</span>
+      <svg class="icon icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+      <svg class="icon icon-close" aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden data-mobile-menu>
+  <nav aria-label="Mobile">
+    <ul class="mobile-menu__list">
+      <li><a class="mobile-menu__link" href="{{root}}index.html" data-nav="home">Home</a></li>
+      <li>
+        <a class="mobile-menu__link" href="{{root}}services.html" data-nav="services">Services</a>
+        <ul class="mobile-menu__sub">
+          <li><a href="{{root}}services/software-web-development.html" data-nav="svc-software">Software &amp; Web Development</a></li>
+          <li><a href="{{root}}services/digital-growth-lead-generation.html" data-nav="svc-growth">Digital Growth &amp; Lead Generation</a></li>
+          <li><a href="{{root}}services/business-automation-crm.html" data-nav="svc-automation">Business Automation &amp; CRM</a></li>
+          <li><a href="{{root}}services/it-support-infrastructure.html" data-nav="svc-it">IT Support &amp; Infrastructure</a></li>
+          <li><a href="{{root}}services/ecommerce-payment-integration.html" data-nav="svc-ecommerce">E-commerce &amp; Payment Integration</a></li>
+        </ul>
+      </li>
+      <li><a class="mobile-menu__link" href="{{root}}about.html" data-nav="about">About</a></li>
+      <li><a class="mobile-menu__link" href="{{root}}pricing.html" data-nav="pricing">Pricing</a></li>
+      <li><a class="mobile-menu__link" href="{{root}}faq.html" data-nav="faq">FAQ</a></li>
+      <li><a class="mobile-menu__link" href="{{root}}contact.html" data-nav="contact">Contact</a></li>
+    </ul>
+    <div class="mobile-menu__cta">
+      <a class="btn btn--primary" href="{{root}}contact.html">Book a consultation <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+  </nav>
+</div>
